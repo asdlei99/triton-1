@@ -101,6 +101,16 @@ jobs:
           cd python/test/unit
           python3 -m pytest
 
+      - name: Create artifacts archive
+        run: |
+          tar -czvf artifacts.tar.gz ~/.triton
+
+      - name: Upload artifacts archive
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifacts
+          path: artifacts.tar.gz
+
       - name: Run CXX unittests
         if: ${{ env.BACKEND != 'ROCM'}}
         run: |
